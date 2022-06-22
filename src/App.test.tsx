@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react"
+import App from "./App"
 
-test('renders learn react link', () => {
-  render(<App />);
-  const title = screen.getByText("text-rendering");
-  expect(title).toBeInTheDocument();
-});
+describe("renders header", () => {
+    it("should contains title: text-rendering", () => {
+        render(<App />)
+        const title = screen.getByText("text-rendering")
+        expect(title).toBeInTheDocument()
+    })
+})
