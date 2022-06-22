@@ -2,7 +2,7 @@ function ForkMeOnGithub() {
     return (
         <a
             href="https://github.com/DevecorSoft/text-rendering"
-            style={{ position: "fixed" }}
+            style={{ position: "absolute" }}
         >
             <img
                 loading="lazy"

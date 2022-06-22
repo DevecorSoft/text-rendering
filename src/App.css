@@ -1,1 +1,6 @@
 @import '~antd/dist/antd.css';
+
+.ptr-container {
+  width: 600px;
+  min-height: 84vh;
+}
