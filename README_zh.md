@@ -15,3 +15,17 @@
 - 主题风格的可定制性极强
 
 然而，当我看到google doc的多人协同编辑带来的强大协作交互能力，我知道故事并没有结束。
+
+用户习惯难以改变，用户信任也难以获得。与其提议其他人使用新的工具，不如将纯文本渲染到[OOXML](http://officeopenxml.com/)，确切的说，是[WordProcessingML](http://officeopenxml.com/anatomyofOOXML.php)。
+
+WordProcessingML support:
+
+- [Pandoc](https://pandoc.org/) - a universal document converter
+
+Markdown support:
+
+* javascript:
+  - [markdown-it](https://github.com/markdown-it/markdown-it)
+  - [marked](https://github.com/markedjs/marked)
+
+
