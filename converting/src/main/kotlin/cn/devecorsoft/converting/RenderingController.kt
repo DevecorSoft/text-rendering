@@ -2,13 +2,13 @@ package cn.devecorsoft.converting
 
 import org.springframework.core.io.Resource
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RestController
 
-@Controller
+@RestController
 class RenderingController {
 
-    @PostMapping("/rendering/markdown")
+    @PostMapping(Endpoints.RENDER_MARKDOWN)
     fun renderMarkdown(): ResponseEntity<Resource> {
         return ResponseEntity.ok(null)
     }
