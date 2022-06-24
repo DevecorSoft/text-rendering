@@ -1,6 +1,7 @@
 package cn.devecorsoft.converting.apitest
 
 import cn.devecorsoft.converting.Endpoints
+import cn.devecorsoft.converting.MarkdownDto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +18,7 @@ class RenderingMarkdownApiTest(
 
     @Test
     fun `should 200`() {
-        val result = testRestTemplate.postForEntity<Resource>(Endpoints.RENDER_MARKDOWN)
+        val result = testRestTemplate.postForEntity<Resource>(Endpoints.RENDER_MARKDOWN, MarkdownDto("# test"))
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
     }
 }
