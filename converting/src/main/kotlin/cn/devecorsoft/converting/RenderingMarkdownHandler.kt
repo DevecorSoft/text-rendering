@@ -7,11 +7,13 @@ import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.buildAndAwait
 
 @Component
-class RenderingMarkdownHandler {
+class RenderingMarkdownHandler(
+    private val processBuilder: ProcessBuilder
+) {
 
     suspend fun render(serverRequest: ServerRequest): ServerResponse {
         val data = serverRequest.awaitBody<MarkdownDto>()
-        println(data)
+        processBuilder.command("pandoc", "-h").start()
         return ServerResponse.ok().buildAndAwait()
     }
 }
