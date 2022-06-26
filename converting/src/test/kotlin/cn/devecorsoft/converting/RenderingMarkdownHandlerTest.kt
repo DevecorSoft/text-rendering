@@ -22,6 +22,7 @@ internal class RenderingMarkdownHandlerTest {
 
     @Mock
     private lateinit var process: Process
+
     @Mock
     private lateinit var outputStream: OutputStream
 
@@ -40,11 +41,12 @@ internal class RenderingMarkdownHandlerTest {
             @Test
             fun `Then should delegate to subprocess`() = runTest {
 
-                `when`(processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", "test.docx")).thenReturn(
+                `when`(processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", "-")).thenReturn(
                     processBuilder
                 )
                 `when`(processBuilder.start()).thenReturn(process)
                 `when`(process.outputStream).thenReturn(outputStream)
+
                 renderingMarkdownHandler.render(
                     MockServerRequest.builder().body(Mono.just(MarkdownDto("# test")))
                 )
