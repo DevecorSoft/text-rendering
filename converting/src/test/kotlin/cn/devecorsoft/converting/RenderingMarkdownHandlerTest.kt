@@ -50,6 +50,7 @@ internal class RenderingMarkdownHandlerTest {
                 )
 
                 verify(outputStream).write("# test".toByteArray())
+                verify(outputStream).flush()
             }
         }
     }
