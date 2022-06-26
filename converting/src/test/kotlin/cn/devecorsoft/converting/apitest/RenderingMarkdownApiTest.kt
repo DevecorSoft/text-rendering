@@ -10,6 +10,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RenderingMarkdownApiTest(
@@ -20,5 +21,7 @@ class RenderingMarkdownApiTest(
     fun `should 200`() {
         val result = testRestTemplate.postForEntity<Resource>(Endpoints.RENDER_MARKDOWN, MarkdownDto("# test"))
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.headers.contentType).isEqualTo(MediaType.MULTIPART_FORM_DATA)
+        assertThat(result.body?.contentLength()).isGreaterThan(0L)
     }
 }
