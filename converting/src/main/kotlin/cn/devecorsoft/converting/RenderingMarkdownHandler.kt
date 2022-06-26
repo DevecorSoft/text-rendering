@@ -13,7 +13,9 @@ class RenderingMarkdownHandler(
 
     suspend fun render(serverRequest: ServerRequest): ServerResponse {
         val data = serverRequest.awaitBody<MarkdownDto>()
-        processBuilder.command("pandoc", "-h").start()
+        processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", "test.docx").start().outputStream.write(
+            data.content.toByteArray()
+        )
         return ServerResponse.ok().buildAndAwait()
     }
 }
