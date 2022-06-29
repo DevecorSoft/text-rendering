@@ -25,6 +25,16 @@ class RenderingMarkdownHandler(
     }
 
     suspend fun renderAsFile(serverRequest: ServerRequest): ServerResponse {
-        return ServerResponse.ok().buildAndAwait()
+        val data = serverRequest.awaitBody<MarkdownDto>()
+        val docxPath = "${data.checksum}.docx"
+        val process = processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", docxPath).start()
+        val outputStream = process.outputStream
+
+        outputStream.write(
+            data.content.toByteArray()
+        )
+        outputStream.flush()
+        outputStream.close()
+        return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).buildAndAwait()
     }
 }

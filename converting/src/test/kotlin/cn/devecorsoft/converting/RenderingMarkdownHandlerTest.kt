@@ -74,15 +74,26 @@ internal class RenderingMarkdownHandlerTest {
             @OptIn(ExperimentalCoroutinesApi::class)
             @Test
             fun `Then should delegate to subprocess`() = runTest {
+                val markdownDto = MarkdownDto("# test")
 
-                `when`(processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", "test.docx")).thenReturn(
+                `when`(
+                    processBuilder.command(
+                        "pandoc",
+                        "-f",
+                        "markdown",
+                        "-t",
+                        "docx",
+                        "-o",
+                        "${markdownDto.checksum}.docx"
+                    )
+                ).thenReturn(
                     processBuilder
                 )
                 `when`(processBuilder.start()).thenReturn(process)
                 `when`(process.outputStream).thenReturn(outputStream)
 
                 renderingMarkdownHandler.renderAsFile(
-                    MockServerRequest.builder().body(Mono.just(MarkdownDto("# test")))
+                    MockServerRequest.builder().body(Mono.just(markdownDto))
                 )
 
                 verify(outputStream).write("# test".toByteArray())

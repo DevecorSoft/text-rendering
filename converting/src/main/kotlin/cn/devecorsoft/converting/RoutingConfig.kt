@@ -12,6 +12,7 @@ class RoutingConfig {
     @Bean
     fun monoRouting(renderingMarkdownHandler: RenderingMarkdownHandler): RouterFunction<ServerResponse> = coRouter {
         POST(Endpoints.RENDER_MARKDOWN, renderingMarkdownHandler::render)
+        POST(Endpoints.RENDER_MARKDOWN_AS_FILE, renderingMarkdownHandler::renderAsFile)
     }
 
     @Bean
