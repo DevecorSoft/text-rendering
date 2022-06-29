@@ -3,10 +3,7 @@ package cn.devecorsoft.converting
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse
-import org.springframework.web.reactive.function.server.awaitBody
-import org.springframework.web.reactive.function.server.bodyValueAndAwait
+import org.springframework.web.reactive.function.server.*
 
 @Component
 class RenderingMarkdownHandler(
@@ -25,5 +22,9 @@ class RenderingMarkdownHandler(
         outputStream.close()
         return ServerResponse.ok().contentType(MediaType.MULTIPART_FORM_DATA)
             .bodyValueAndAwait(InputStreamResource(process.inputStream))
+    }
+
+    suspend fun renderAsFile(serverRequest: ServerRequest): ServerResponse {
+        return ServerResponse.ok().buildAndAwait()
     }
 }

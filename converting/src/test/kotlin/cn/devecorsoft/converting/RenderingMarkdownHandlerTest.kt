@@ -13,6 +13,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.mock.web.reactive.function.server.MockServerRequest
 import reactor.core.publisher.Mono
+import java.io.InputStream
 import java.io.OutputStream
 
 @ExtendWith(MockitoExtension::class)
@@ -25,6 +26,9 @@ internal class RenderingMarkdownHandlerTest {
 
     @Mock
     private lateinit var outputStream: OutputStream
+
+    @Mock
+    private lateinit var inputStream: InputStream
 
     @InjectMocks
     private lateinit var renderingMarkdownHandler: RenderingMarkdownHandler
@@ -46,6 +50,7 @@ internal class RenderingMarkdownHandlerTest {
                 )
                 `when`(processBuilder.start()).thenReturn(process)
                 `when`(process.outputStream).thenReturn(outputStream)
+                `when`(process.inputStream).thenReturn(inputStream)
 
                 renderingMarkdownHandler.render(
                     MockServerRequest.builder().body(Mono.just(MarkdownDto("# test")))
@@ -53,6 +58,36 @@ internal class RenderingMarkdownHandlerTest {
 
                 verify(outputStream).write("# test".toByteArray())
                 verify(outputStream).flush()
+                verify(outputStream).close()
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Given rendering markdown to file")
+    inner class MarkdownAsFile {
+
+        @Nested
+        @DisplayName("When perform basic markdown syntax without styles")
+        inner class StandardSyntax {
+
+            @OptIn(ExperimentalCoroutinesApi::class)
+            @Test
+            fun `Then should delegate to subprocess`() = runTest {
+
+                `when`(processBuilder.command("pandoc", "-f", "markdown", "-t", "docx", "-o", "test.docx")).thenReturn(
+                    processBuilder
+                )
+                `when`(processBuilder.start()).thenReturn(process)
+                `when`(process.outputStream).thenReturn(outputStream)
+
+                renderingMarkdownHandler.renderAsFile(
+                    MockServerRequest.builder().body(Mono.just(MarkdownDto("# test")))
+                )
+
+                verify(outputStream).write("# test".toByteArray())
+                verify(outputStream).flush()
+                verify(outputStream).close()
             }
         }
     }
