@@ -18,8 +18,10 @@ class RenderingMarkdownAsFileApiTest(
 
     @Test
     fun `should 200`() {
-        val result = testRestTemplate.postForEntity<String>(Endpoints.RENDER_MARKDOWN_AS_FILE, MarkdownDto("# test"))
+        val markdownDto = MarkdownDto("# test")
+        val result = testRestTemplate.postForEntity<String>(Endpoints.RENDER_MARKDOWN_AS_FILE, markdownDto)
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(result.headers.contentType).isEqualTo(MediaType.TEXT_PLAIN)
+        assertThat(result.body).isEqualTo("/${markdownDto.checksum}.docx")
     }
 }

@@ -35,6 +35,6 @@ class RenderingMarkdownHandler(
         )
         outputStream.flush()
         outputStream.close()
-        return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).buildAndAwait()
+        return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).bodyValueAndAwait("/${docxPath}")
     }
 }
