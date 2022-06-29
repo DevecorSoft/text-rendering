@@ -10,9 +10,14 @@ import org.springframework.web.reactive.function.server.*
 @Configuration
 class RoutingConfig {
     @Bean
-    fun monoRouting(renderingMarkdownHandler: RenderingMarkdownHandler): RouterFunction<ServerResponse> = coRouter {
+    fun renderingRouting(renderingMarkdownHandler: RenderingMarkdownHandler): RouterFunction<ServerResponse> = coRouter {
         POST(Endpoints.RENDER_MARKDOWN, renderingMarkdownHandler::render)
         POST(Endpoints.RENDER_MARKDOWN_AS_FILE, renderingMarkdownHandler::renderAsFile)
+    }
+
+    @Bean
+    fun docxRouting(docxHandler: DocxHandler): RouterFunction<ServerResponse> = coRouter {
+        GET(Endpoints.DOCX, docxHandler::getDocx)
     }
 
     @Bean
