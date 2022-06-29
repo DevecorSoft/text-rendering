@@ -5,11 +5,15 @@ import Editor from "@monaco-editor/react"
 import monaco from "monaco-editor/esm/vs/editor/editor.api"
 import { useRef } from "react"
 import axios from "axios"
+import { useAppDispatch } from "./hooks"
+import { docxFetched } from "./docxSlice"
+import { renderAsync } from "docx-preview"
 
 const { Header, Content } = Layout
 
 function App() {
     const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null)
+    const dsipatch = useAppDispatch()
 
     function handleEditorDidMount(editor: monaco.editor.IStandaloneCodeEditor) {
         editorRef.current = editor
@@ -17,11 +21,20 @@ function App() {
 
     function render() {
         axios
-            .post("http://localhost:8080/rendering/markdown", {
-                content: editorRef.current?.getValue(),
-            })
-            .then((data) => {
-                console.log(data)
+            .post(
+                "http://localhost:8080/rendering/markdown",
+                {
+                    content: editorRef.current?.getValue(),
+                },
+                { responseType: "arraybuffer" }
+            )
+            .then((response) => {
+                renderAsync(
+                    response.data,
+                    document.getElementById("container")!
+                ).then(() => {
+                    console.log("docx: finished!")
+                })
             })
             .catch((err) => {
                 console.log(err)
@@ -55,7 +68,9 @@ function App() {
                         </Button>
                     </div>
                     <div className="ptr-container">
-                        <div id="container">previewer container</div>
+                        <div id="container">
+                            previewer container placeholder
+                        </div>
                     </div>
                     <div>menu area</div>
                 </Space>
