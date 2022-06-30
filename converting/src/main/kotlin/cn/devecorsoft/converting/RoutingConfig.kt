@@ -31,6 +31,7 @@ class RoutingConfig {
 
         val source = UrlBasedCorsConfigurationSource().apply {
             registerCorsConfiguration(Endpoints.RENDER_MARKDOWN, config)
+            registerCorsConfiguration(Endpoints.RENDER_MARKDOWN_AS_FILE, config)
         }
         return CorsWebFilter(source)
     }
