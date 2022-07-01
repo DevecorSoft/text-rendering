@@ -28,7 +28,7 @@ function App() {
             }
         )
         .then((response) => {
-            location.replace(`http://localhost:8080/docx${response.data}`)
+            window.location.replace(`http://localhost:8080/docx${response.data}`)
         })
         .catch((err) => {
             console.log(err)
