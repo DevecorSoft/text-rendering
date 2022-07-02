@@ -21,40 +21,39 @@ function App() {
 
     function render() {
         axios
-        .post(
-            "http://localhost:8080/rendering/markdown/file",
-            {
+            .post("http://localhost:8080/rendering/markdown/file", {
                 content: editorRef.current?.getValue(),
-            }
-        )
-        .then((response) => {
-            window.location.replace(`http://localhost:8080/docx${response.data}`)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            })
+            .then((response) => {
+                window.location.replace(
+                    `http://localhost:8080/docx${response.data}`
+                )
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     function preview() {
         axios
-        .post(
-            "http://localhost:8080/rendering/markdown",
-            {
-                content: editorRef.current?.getValue(),
-            },
-            { responseType: "arraybuffer" }
-        )
-        .then((response) => {
-            renderAsync(
-                response.data,
-                document.getElementById("container")!
-            ).then(() => {
-                console.log("docx: finished!")
+            .post(
+                "http://localhost:8080/rendering/markdown",
+                {
+                    content: editorRef.current?.getValue(),
+                },
+                { responseType: "arraybuffer" }
+            )
+            .then((response) => {
+                renderAsync(
+                    response.data,
+                    document.getElementById("container")!
+                ).then(() => {
+                    console.log("docx: finished!")
+                })
             })
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
@@ -79,12 +78,14 @@ function App() {
                             defaultValue={"# Title\ndescription\n"}
                             onMount={handleEditorDidMount}
                         />
-                        <Button type="primary" onClick={preview}>
-                            Preview
-                        </Button>
-                        <Button type="primary" onClick={render}>
-                            Render
-                        </Button>
+                        <Space>
+                            <Button type="primary" onClick={preview}>
+                                Preview
+                            </Button>
+                            <Button type="primary" onClick={render}>
+                                Render
+                            </Button>
+                        </Space>
                     </div>
                     <div className="ptr-container">
                         <div id="container">
