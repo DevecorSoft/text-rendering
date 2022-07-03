@@ -1,0 +1,36 @@
+name: "ci"
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "converting/src/**"
+      - "converting/gradle/**"
+      - "converting/build.gradle.kts"
+      - "converting/settings.gradle.kts"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        run: |
+          cd converting
+          ./gradlew build
+
+      - name: Read version
+        id: read_current_version
+        run: echo "::set-output name=version::$(cat version.txt)"
+
+      - name: Verify version
+        uses: devecorsoft/verify-version@v1
+        with:
+          current: ${{ steps.read_current_version.outputs.version }}
