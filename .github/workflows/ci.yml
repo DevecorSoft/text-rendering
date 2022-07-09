@@ -28,9 +28,19 @@ jobs:
 
       - name: Read version
         id: read_current_version
-        run: echo "::set-output name=version::$(cat version.txt)"
+        run: |
+          echo "::set-output name=version::$(cat version.txt)"
 
       - name: Verify version
         uses: devecorsoft/verify-version@v1
         with:
           current: ${{ steps.read_current_version.outputs.version }}
+
+      - name: Build frontend
+        run: npm build
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: text-rendering-artifact
+          path: converting/build/converting-${{ steps.read_current_version.outputs.version }}.war
