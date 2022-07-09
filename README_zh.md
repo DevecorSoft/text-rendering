@@ -1,5 +1,9 @@
 # text-rendering
 
+一个将纯文本渲染成富文本的工具，允许用户自定义主题和风格。
+
+### 解决的问题
+
 纯文本非常简单，易于编写、文本比较、版本控制。
 富文本相对而言，表现能力更强，但是结构复杂，在甄误和版本控制方面处于劣势。文档的排版和格式成为了内容的一部分，常常使用户感到心力交瘁。
 
@@ -27,5 +31,3 @@ Markdown support:
 * javascript:
   - [markdown-it](https://github.com/markdown-it/markdown-it)
   - [marked](https://github.com/markedjs/marked)
-
-

@@ -1,5 +1,9 @@
 # text-rendering
 
+a tool that render plaintext into richtext file allow user customize themes/style.
+
+## The problem it solves
+
 Plaintext is so simple and easy to edit and compare. Particularly, It's better than binary files to be included in VCS.
 
 Despite richtext's the capability of representation is amazing, it's complicated to maintain a document with big size. Because the styles are tightly coupled with the content.
