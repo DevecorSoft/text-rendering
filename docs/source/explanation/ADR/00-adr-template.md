@@ -1,43 +1,38 @@
-# [short title of solved problem and solution]
+# [ADR-<sequence number>] [short title of solved problem and solution]
 
-* Status: [proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
-* Deciders: [list everyone involved in the decision] <!-- optional -->
+* Status: [accepted | deprecated | superseded by [ADR-005](./005-example.md)] <!-- optional -->
 * Date: [YYYY-MM-DD when the decision was last updated] <!-- optional -->
-
-Technical Story: [description | ticket/issue URL] <!-- optional -->
+* Story: [description | ticket/issue URL] <!-- optional -->
 
 ## Context and Problem Statement
 
 [Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
 
-## Decision Drivers <!-- optional -->
+### Assumptions <!-- optional  -->
+* [assumption 1]
+* [assumption 2]
+### Constraints <!-- optional  -->
+* [constraint 1]
+* [constraint 1]
 
-* [driver 1, e.g., a force, facing concern, …]
-* [driver 2, e.g., a force, facing concern, …]
-* … <!-- numbers of drivers can vary -->
+## Proposal
 
-## Considered Options
+[Either a single proposal or a list of options if multiple options are available]
 
 * [option 1]
 * [option 2]
 * [option 3]
 * … <!-- numbers of options can vary -->
 
+
+[Describe the proposal]
+
 ## Decision Outcome
 
 Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
 
-### Positive Consequences <!-- optional -->
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
-
-### Negative Consequences <!-- optional -->
-
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
-
-## Pros and Cons of the Options <!-- optional -->
+## Pros and Cons of Proposal <!-- optional  -->
 
 ### [option 1]
 
